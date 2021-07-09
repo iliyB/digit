@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>	
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>
+		{% block title %}
+			Digit
+		{% endblock %}
+	</title>
+	<style type="text/css">
+		.title
+		{
+			font-size: 125%;
+			font-style: italic;
+		}
+		.values
+		{
+			font-size: 125%;
+			font-family: 'Verdana';
+			font-weight: bold;
+			color: black;
+		}
+		.link-values
+		{
+			font-family: 'Verdana';
+			font-weight: bold;
+			color: black;
+		}
+		.link-values:visited
+		{
+			color: black;
+		}
+		.nav-link
+		{
+			font-size: 150%;
+			color: black;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 2px solid black">
+		<a class="navbar-brand" href="#" style="font-size: 200%">DIGIT</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active">
+					<a class="nav-link" href="{% url 'catalog_url' %}" style="font-style: italic;">Каталог</a>
+				</li>
+				{% if request.user.is_authenticated and request.user.is_staff %}
+					<li class="nav-item">
+					<a class="nav-link" href="{% url 'users_url' %}" style="font-style: italic;">Пользователи</a>
+				</li>
+				{% endif %}	
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'authors_url' %}" style="font-style: italic;">Авторы</a>
+				</li>
+			
+			</ul>
+		</div>
+		{% block search %}
+		{% endblock %}
+	</nav>
+	
+	<div class = 'container mt-5'>
+		{% block content %}
+			Empty
+		{% endblock %}
+	</div>
+
+</body>
+</html>
