@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% block title %}
+	Book update
+{% endblock %}
+
+{% block content %}
+	<form action='{{ book.get_update_url }}' method="post">
+		{% csrf_token %}
+
+		{% for field in form %}
+		<div class="form-group">
+			{% if field.errors %}
+			 	<div class="alert alert-danger">
+			 		{{ field.errors }}
+			 	</div> 			
+			{% endif %}
+
+			{{ field.label }}
+			{{ field }}
+		</div>
+		{% endfor %}
+
+
+		<button type="submit" cblass="btn btn-primary"> 
+			Принять изменения
+		</button>
+	</form>
+{% endblock %} 

@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+ 	{{ book.Title }}
+{% endblock %}
+
+{% block content %}
+
+	<div class="card">
+		<div class="card-body">
+			<div style="width: 50%; height: 50%; float: right;">
+				<img src="{{ book.Picture.url }}" class="card-img" s>
+			</div>
+			<div>
+				<h5 class="card-title" style="font-size: 150%">НАЗВАНИЕ КНИГИ: <span style="font-size: 150%; font-family: 'Geneva'; font-weight: bold;">{{ book.Title }}</span></h5>
+				<h5 class="card-title">АВТОРЫ: <span style="font-size: 150%; font-family: 'Geneva'; font-weight: bold;">{% for author in book.Authors.all %} {{ author }} {% endfor %}</span></h5> 
+				<p class="card-text">ЦЕНА: <span style="font-size: 300%; color: #0e8c48; margin: 3%; font-style: italic;">{{ book.Cost }}</span></p> 
+			</div>
+			<div style="margin-top: 21%">
+				<span style="font-size: 150%; font-style: italic;">
+					Описание:
+				</span>
+				<br>
+				{{ book.Body }}
+			</div>
+		</div>
+		{% if request.user.is_authenticated and request.user.is_staff %}
+					<div>
+			<a href="{{ book.get_update_url }}" class = "btn btn-success" style="margin-left: 2%; margin-bottom: 2%; margin-top: 4%">Изменить</a>
+			<a href="{{ book.get_delete_url }}" class = "btn btn-danger " style="margin-left: 1%; margin-bottom: 2%; margin-top: 4%">Удалить</a>
+			</div>
+		{% endif %}	
+		
+	</div>
+	
+
+{% endblock %} 

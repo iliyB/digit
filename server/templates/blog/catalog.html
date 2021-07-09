@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+	Catalog
+{% endblock %}
+
+{% block content %}
+	{% if request.user.is_authenticated and request.user.is_staff %}
+		<a href="{% url 'book_create_url' %}"><button type="button" class="btn btn-success" style="margin-bottom: 3%">Добавить новую книгу</button></a>
+	{% endif %}
+	{% for book in books %}
+	<div class="card mb-3" style="max-width: 80%;">
+		<div class="row no-gutters">
+			<div class="col-md-4">
+				<img src="{{ book.Picture.url }}" class="card-img" style="width: 16em; height: 11em">
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title" style="font-size: 200%; font-family: 'Times New Roman'">{{ book.Title|title }}</h5>
+					<h5 class="card-title">Авторы: {% for author in book.Authors.all %} {{ author }} {% endfor %}</h5>
+					<p class="card-text" style="font-style: italic;">{{ book.Body|truncatewords:20 }}</p> 
+				</div>
+				
+			</div>
+		</div>
+		<div class="card-footer">
+					<div class="row">
+						<div style="font-size: 175%; color: #0e8c48;">
+							<span style="font-size: 75%">Стоимость:</span> {{ book.Cost }}
+						</div>
+						<div style="position: absolute; left: 85%;">
+							<a href="{{ book.get_absolute_url }}" class="btn btn-primary">Подробнее</a>
+						</div>
+					</div>
+				</div>
+	</div>
+	{% endfor %}
+{% endblock %} 
+
+{% block search %}
+	<form class="form-inline my-2 my-lg-0" action="{% url 'catalog_url' %}">
+			<input class="form-control mr-sm-2" type="search" placeholder="книги" aria-label="Search" name = "search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+	</form>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+	Author update
+{% endblock %}
+
+{% block content %}
+	<form action='{{ author.get_update_url }}' method="post">
+		{% csrf_token %}
+
+		{% for field in form %}
+		<div class="form-group">
+			{% if field.errors %}
+			 	<div class="alert alert-danger">
+			 		{{ field.errors }}
+			 	</div> 			
+			{% endif %}
+
+			{{ field.label }}
+			{{ field }}
+		</div>
+		{% endfor %}
+
+
+		<button type="submit" cblass="btn btn-primary"> 
+			Изменить
+		</button>
+	</form>
+{% endblock %} 

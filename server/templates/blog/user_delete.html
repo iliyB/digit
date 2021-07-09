@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+	{{ user.Nickname }}
+{% endblock %}
+
+{% block content %}
+	<form action='{{ user.get_delete_url }}' method="post">
+		{% csrf_token %}
+		<p style="font-size: 125%">Вы действительно хотите удалить пользователя "<b>{{ user.Nickname|title }}</b>"?</p>
+		<a href="{{ user.get_absolute_url }}" class="btn btn-primary">Отменить
+		</a>
+		<button type="submit" class="btn btn-danger"> 
+			Удалить
+		</button>
+	</form>
+{% endblock %} 

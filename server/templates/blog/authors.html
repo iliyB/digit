@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+	Author
+{% endblock %}
+
+{% block content %}
+	{% if request.user.is_authenticated and request.user.is_staff %}
+		<a href="{% url 'author_create_url' %}"><button type="button" class="btn btn-success" style="margin-bottom: 3%">Добавить нового автора</button></a>
+	{% endif %}	
+	{% for author in authors %}
+		<div class="card" style="margin-bottom: 1%">
+			<div class="card-header" style="font-size: 200%">{{ author.Author }}</div>
+			<div class="card-body">
+				<h4 class="card-title" style="font-family: 'Cambria';">Книги:</h4>
+				{% for book in author.books.all %}
+				<p>
+					<a href="{{ book.get_absolute_url }}" style="color: #32858d; font-size: 120%; font-style: italic;">{{ book.Title }}</a>
+				</p>
+				
+				{% endfor %}
+			</div>
+			
+				{% if request.user.is_authenticated and request.user.is_staff %}
+				<div class="card-footer">
+					<a href="{{ author.get_update_url }}" class="btn btn-primary">Изменить</a>
+					<a href="{{ author.get_delete_url }}" class="btn btn-danger">Удалить</a>
+				</div>
+				{% endif %}		
+			
+		</div>
+	{% endfor %}
+{% endblock %} 
+
+{% block search %}
+	<form class="form-inline my-2 my-lg-0" action="{% url 'authors_url' %}">
+			<input class="form-control mr-sm-2" type="search" placeholder="авторы" aria-label="Search" name = "search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+	</form>
+{% endblock %}

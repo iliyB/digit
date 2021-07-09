@@ -1,0 +1,24 @@
+"{% extends 'blog/base.html' %}
+
+{% block title %}
+	{{ user.Nickname }}
+{% endblock %}
+
+{% block content %}
+	<div class="card" style="width: 25rem;">
+		<div class="card-footer" style="font-size: 200%">
+			{{user.Nickname}}
+		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item"><span class="title">Имя:</span> <span class='values'>{{user.Name}}</span></li>
+			<li class="list-group-item"><span class="title">Пароль:</span> <span class='values'>{{user.Password}}</span></li>
+			<li class="list-group-item"><span class="title">Счет:</span> <span class='values'>{{user.Money}}</span></li>
+			<li class="list-group-item"><span class="title">Устройство:</span> <span class='values'>{{user.Device}}</span></li>
+			<li class="list-group-item"><span class="title">Книги пользователя:</span><span class='values'>{% for book in user.Books.all %}<p style="line-height: 75%"><a class="link-values" href="{{ book.get_absolute_url }}">{{ book }}</a></p>{% endfor %}</span></li>
+			
+		</ul>
+		<div class="card-footer">
+			<a href="{{ user.get_update_url }}" class="btn btn-primary">Изменить</a> <a href="{{ user.get_delete_url }}" class="btn btn-danger">Удалить</a>
+		</div>
+	</div>
+{% endblock %} 

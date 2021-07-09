@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+	Users
+{% endblock %}
+
+{% block content %}
+	<a href="{% url 'user_create_url' %}"><button type="button" class="btn btn-success" style="margin-bottom: 3%">Создать нового пользователя</button></a>
+	<div class="card-deck" >
+	{% for user in users %}
+		<div class="card bg-light mb-3" style="max-width: 18rem;">
+			<div class="card-header" style="font-size: 150%">{{ user.Nickname }}</div>
+			<div class="card-body">
+				<h5 class="card-title">Имя: {{ user.Name }}</h5>
+				<h5 class="card-title">Счет: {{ user.Money }}</h5>
+				<a href="{{ user.get_absolute_url }}"><button type="button" class="btn btn-primary">Подробнее</button></a>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+{% endblock %} 
+
+{% block search %}
+	<form class="form-inline my-2 my-lg-0" action="{% url 'users_url' %}">
+			<input class="form-control mr-sm-2" type="search" placeholder="пользователи" aria-label="Search" name = "search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+	</form>
+{% endblock %}

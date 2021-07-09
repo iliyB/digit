@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+	{{ book.Title }}
+{% endblock %}
+
+{% block content %}
+	<form action='{{ book.get_delete_url }}' method="post">
+		{% csrf_token %}
+		<p style="font-size: 125%">Вы действительно хотите удалить книгу "<b>{{ book.Title|title }}</b>"?</p>
+		<a href="{{ book.get_absolute_url }}" class="btn btn-primary">Отменить
+		</a>
+		<button type="submit" class="btn btn-danger"> 
+			Удалить
+		</button>
+	</form>
+{% endblock %} 
